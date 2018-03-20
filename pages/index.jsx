@@ -7,6 +7,8 @@ import Loading from '../components/Loading'
 import SignInFormContainer from '../containers/auth/SignInFormContainer'
 import { retrieveUser } from '../modules/auth'
 import initStore from '../store'
+import 'normalize.css/normalize.css'
+import 'react-dates/lib/css/_datepicker.css'
 import '../styles/style.scss'
 
 class Index extends React.Component {

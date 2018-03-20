@@ -1,0 +1,39 @@
+
+.btn {
+  color: white;
+  background-color: $blue;
+  border: none;
+  display: inline-block;
+  font-size: $font-size-l;
+  font-weight: 300;
+  line-height: 1;
+  padding: $s-size;
+  text-decoration: none;
+
+  &:hover,
+  &:focus,
+  &:active {
+    background-color: darken($blue, 5%);
+  }
+}
+
+.btn--noBg {
+  background-color: transparent;
+
+  &:hover,
+  &:focus,
+  &:active {
+    background-color: transparent;
+    text-decoration: underline;
+  }
+}
+
+.btn--alt {
+  background-color: #888;
+
+  &:hover,
+  &:focus,
+  &:active {
+    background-color: darken(#888, 5%);
+  }
+}
