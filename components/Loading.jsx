@@ -1,5 +1,4 @@
 import React from 'react'
-import { Image } from 'react-bootstrap'
 
 const Loading = () => (
   <div className="loader">
