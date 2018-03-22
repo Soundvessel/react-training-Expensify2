@@ -5,7 +5,7 @@ import initStore from '../store'
 import Layout from '../components/Layout'
 
 const Dashboard = () => (
-  <Layout>
+  <Layout showHead={true}>
     <h1>Dashboard</h1>
   </Layout>
 )
