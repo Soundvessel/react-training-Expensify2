@@ -8,6 +8,7 @@ export default class CustomDocument extends Document {
   }
 
   render() {
+
     return (
       <html>
         <Head>

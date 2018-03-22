@@ -7,8 +7,8 @@ import React from 'react'
 //import SignInFormContainer from '../containers/auth/SignInFormContainer'
 //import { retrieveUser } from '../modules/auth'
 import initStore from '../store'
-import '../styles/styles.scss'
 
+import Layout from '../components/Layout'
 import { firebase } from '../lib/firebase'
 import { startLogin, login, logout } from '../actions/auth'
 import { startSetExpenses } from '../actions/expenses'
@@ -49,13 +49,15 @@ class Index extends React.Component {
     const { startLogin } = this.props
 
     return (
-      <div className="box-layout">
-        <div className="box-layout__box">
-          <h1 className="vox-layout__title">Expensify</h1>
-          <p>It's time ot get your expenses under control.</p>
-          <button type="button" className="btn" onClick={startLogin}>Login with Google</button>
+      <Layout>
+        <div className="box-layout">
+          <div className="box-layout__box">
+            <h1 className="vox-layout__title">Expensify</h1>
+            <p>It's time ot get your expenses under control.</p>
+            <button type="button" className="btn" onClick={startLogin}>Login with Google</button>
+          </div>
         </div>
-      </div>
+      </Layout>
     )
   }
 }
