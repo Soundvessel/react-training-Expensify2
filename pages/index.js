@@ -12,14 +12,19 @@ import { firebase } from '../lib/firebase'
 import { startLogin, login, logout } from '../actions/auth'
 import { startSetExpenses } from '../actions/expenses'
 
-let isLoading = true;
-
 class Index extends React.Component {
+
   state = {
-    signedIn: null,
+    isLoading: true
   }
 
   componentDidMount() {
+
+    const isLoaded = () => {
+      this.setState({
+        isLoading: false
+      })
+    }
 
     const {login, logout, startSetExpenses} = this.props
 
@@ -29,19 +34,12 @@ class Index extends React.Component {
 
         login(user.uid)
         startSetExpenses().then(() => {
-          isLoading = false
-
-          // next route to dashboard
-          console.log('Logged In')
-          console.log(`isLoading: ${isLoading}`)
+          Router.replace('/dashboard')
         })
 
       } else {
-        isLoading = false
-        console.log('Logged Out')
-        console.log(`isLoading: ${isLoading}`)
         logout()
-        //Router.push('/')
+        isLoaded()
       }
     })
   }
@@ -50,7 +48,7 @@ class Index extends React.Component {
     const { startLogin } = this.props
 
     return (
-      <Layout showHead={false} isLoading={false}>
+      <Layout showHead={false} isLoading={this.state.isLoading}>
         <div className="box-layout">
           <div className="box-layout__box">
             <h1 className="vox-layout__title">Expensify</h1>
@@ -62,7 +60,5 @@ class Index extends React.Component {
     )
   }
 }
-
-
 
 export default withRedux(initStore, null, { startLogin, login, logout, startSetExpenses })(Index)
