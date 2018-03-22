@@ -1,7 +1,12 @@
+// Modules
+@import "normalize.css";
+@import "react-dates/lib/css/_datepicker.css";
+
+// App
 @import './base/settings';
 @import './base/base';
 @import './components/box-layout';
-@import 'components/btn';
+@import './components/btn';
 @import './components/header';
 @import './components/content-container';
 @import './components/page-header';
