@@ -34,7 +34,7 @@ class Index extends React.Component {
 
         login(user.uid)
         startSetExpenses().then(() => {
-          Router.replace('/dashboard')
+          Router.push('/dashboard')
         })
 
       } else {

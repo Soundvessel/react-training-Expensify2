@@ -28,12 +28,8 @@ export class Layout extends React.Component {
 
 Layout.propTypes = {
   children: PropTypes.node,
-  showHead: PropTypes.oneOf(
-    [true, false]
-  ),
-  isLoading: PropTypes.oneOf(
-    [true, false]
-  )
+  showHead: PropTypes.bool,
+  isLoading: PropTypes.bool
 }
 
 Layout.defaultProps = {

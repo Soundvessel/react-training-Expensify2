@@ -1,15 +1,28 @@
 import React from 'react'
-import Router from 'next/router'
-import withRedux from 'next-redux-wrapper'
+import Link from 'next/link'
+import { connect } from 'react-redux'
 
 import { startLogout } from '../actions/auth'
-import initStore from '../store'
 
 export const Header = () => (
 
   <header className="header">
-header
+    <div className="content-container">
+      <div className="header__content">
+
+        <Link href={"/dashboard"} >
+          <a className="header__title">
+          <h1>Expensify</h1>
+          </a>
+        </Link>
+        <button type="button" className="btn btn--noBg" onClick={startLogout}>Logout</button>
+      </div>
+    </div>
   </header>
 )
 
-export default withRedux(initStore, null, null)(Header)
+const mapDispatchToProps = (dispatch) => ({
+  startLogout: () => dispatch(startLogout())
+})
+
+export default connect(undefined, mapDispatchToProps)(Header)
