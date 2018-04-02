@@ -5,7 +5,7 @@ import thunk from 'redux-thunk'
 import { requireEnvVar } from './lib/utils'
 import api from './middlewares/api'
 import * as reducers from './modules'
-import { SIGN_OUT_SUCCESS } from './modules/auth'
+//import { SIGN_OUT_SUCCESS } from './modules/auth'
 
 const getInitialState = () => ({
   config: {
@@ -27,10 +27,10 @@ const appReducer = combineReducers({
 const rootReducer = (state, action) => {
   // Reset state to initialState upon sign out
   // See https://stackoverflow.com/q/35622588/956688
-  if (action.type === SIGN_OUT_SUCCESS) {
-    // Do not reset config state
-    state = { config: state.config }
-  }
+  // if (action.type === SIGN_OUT_SUCCESS) {
+  //   // Do not reset config state
+  //   state = { config: state.config }
+  // }
 
   return appReducer(state, action)
 }

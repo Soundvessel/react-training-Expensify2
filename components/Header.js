@@ -10,7 +10,7 @@ export const Header = () => (
     <div className="content-container">
       <div className="header__content">
 
-        <Link href={"/dashboard"} >
+        <Link href="/dashboard" >
           <a className="header__title">
           <h1>Expensify</h1>
           </a>

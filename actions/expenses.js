@@ -94,7 +94,6 @@ export const startSetExpenses = () => {
   return (dispatch, getState) => {
 
     const uid = getState().auth.uid
-    console.log(`uid: ${uid}`)
     const expenses = []
 
     const expensesArray = (snapshot) => {

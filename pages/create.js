@@ -1,15 +1,16 @@
 import React from 'react'
+import Router from 'next/router'
 import Layout from '../components/Layout'
 import ExpenseForm from '../components/ExpenseForm'
 import { startAddExpense } from "../actions/expenses"
 import requireFireAuth from '../lib/requireFireAuth'
-import initStore from '../store'
+import { connect } from 'react-redux'
 
 
 class AddExpensePage extends React.Component {
   onSubmit = (expense) => {
     this.props.startAddExpense(expense)
-    //this.props.history.push('/')
+    Router.push('/dashboard')
   }
   render() {
     return (
@@ -29,5 +30,6 @@ class AddExpensePage extends React.Component {
   }
 }
 
-//export default connect(undefined, mapDispatchToProps)(AddExpensePage)
-export default requireFireAuth(initStore, null, { startAddExpense })(AddExpensePage)
+const ConnectedAddExpensePage = connect(null, { startAddExpense })(AddExpensePage)
+
+export default requireFireAuth(ConnectedAddExpensePage);

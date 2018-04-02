@@ -9,6 +9,7 @@ import ExpensesSummary from '../components/ExpensesSummary'
 const Dashboard = () => (
   <Layout showHead={true}>
     <ExpensesSummary/>
+    <ExpenseListFilters/>
     <ExpenseList />
   </Layout>
 )

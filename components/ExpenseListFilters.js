@@ -1,5 +1,7 @@
 import React from 'react'
+import * as moment from 'moment'
 import { connect } from 'react-redux'
+import 'react-dates/initialize'
 import { DateRangePicker } from 'react-dates'
 
 import { setTextFilter, sortByDate, sortByAmount, setStartDate, setEndDate } from '../actions/filters'
@@ -31,7 +33,11 @@ export class ExpenseListFilters extends React.Component {
         break
     }
   }
+
   render() {
+
+    const { text, sortBy, startDate, endDate } = this.props.filters
+
     return (
       <div className="content-container">
         <div className="input-group">
@@ -39,7 +45,7 @@ export class ExpenseListFilters extends React.Component {
             <input
               type="text"
               className="text-input"
-              value={this.props.filters.text}
+              value={text}
               onChange={this.onTextChange}
               placeholder="Search Expenses"
             />
@@ -47,7 +53,7 @@ export class ExpenseListFilters extends React.Component {
           <div className="input-group__item">
             <select
               className="select"
-              value={this.props.filters.sortBy}
+              value={sortBy}
               onChange={this.onSortChange}
             >
               <option value="date">Date</option>
@@ -56,14 +62,18 @@ export class ExpenseListFilters extends React.Component {
           </div>
           <div className="input-group__item">
             <DateRangePicker
-              startDate={this.props.filters.startDate}
-              endDate={this.props.filters.endDate}
+              startDate={startDate ? moment(startDate) : null}
+              startDateId="startDateId"
+              endDate={endDate ? moment(endDate) : null}
+              endDateId="endDateId"
               onDatesChange={this.onDatesChange}
               focusedInput={this.state.calendarFocused}
               onFocusChange={this.onFocusChange}
               showClearDates={true}
               numberOfMonths={1}
               isOutsideRange={() => false}
+              startDatePlaceholderText="Start Date"
+              endDatePlaceholderText="End Date"
             />
           </div>
         </div>
