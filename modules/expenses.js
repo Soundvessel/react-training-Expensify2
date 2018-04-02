@@ -2,6 +2,7 @@
 
 import database from '../lib/firebase'
 import * as moment from 'moment'
+import { createSelector } from 'reselect'
 
 
 // Actions
@@ -181,27 +182,47 @@ export const setExpenses = (expenses) => ({
 // Selectors
 ////////////
 
+const selectExpenses = state => state.expenses
+
+const selectFilters = state => state.filters
+
 /*
   Selects Expenses based on filter settings
 */
-export const selectExpenses = (expenses, { text, sortBy, startDate, endDate }) => {
-  return expenses.filter((expense) => {
-    const createdAtMoment = moment(expense.createdAt)
-    const startDateMatch = startDate ? moment(startDate).isSameOrBefore(createdAtMoment, 'day') : true
-    const endDateMatch = endDate ? moment(endDate).isSameOrAfter(createdAtMoment, 'day') : true
-    const textMatch = expense.description.toLowerCase().includes(text.toLowerCase())
+export const selectFilteredExpenses = createSelector(
+  selectExpenses,
+  selectFilters,
+  (expenses, { text, sortBy, startDate, endDate }) => {
+    return expenses.filter((expense) => {
+      const createdAtMoment = moment(expense.createdAt)
+      const startDateMatch = startDate ? moment(startDate).isSameOrBefore(createdAtMoment, 'day') : true
+      const endDateMatch = endDate ? moment(endDate).isSameOrAfter(createdAtMoment, 'day') : true
+      const textMatch = expense.description.toLowerCase().includes(text.toLowerCase())
 
-    return startDateMatch && endDateMatch && textMatch
-  }).sort((a, b) => {
-    if (sortBy === 'date') {
-      return a.createdAt < b.createdAt ? 1 : -1
-    } else if (sortBy === 'amount') {
-      return a.amount < b.amount ? 1 : -1
-    }
-  })
-}
+      return startDateMatch && endDateMatch && textMatch
+    }).sort((a, b) => {
+      if (sortBy === 'date') {
+        return a.createdAt < b.createdAt ? 1 : -1
+      } else if (sortBy === 'amount') {
+        return a.amount < b.amount ? 1 : -1
+      }
+    })
+  }
+)
 
 /*
-  Selects total sum of Expenses amounts
+  Selects count of Filtered Expenses
 */
-export const selectExpensesTotal = (expenses) => expenses.reduce((total, expense) => total + expense.amount, 0)
+export const selectFilteredExpensesCount = createSelector(
+  selectFilteredExpenses,
+  (expenses) => expenses.length
+)
+
+
+/*
+  Selects Filtered Expenses amount total (sums amounts)
+*/
+export const selectFilteredExpensesTotal = createSelector(
+  selectFilteredExpenses,
+  (expenses) => expenses.reduce((total, expense) => total + expense.amount, 0)
+)

@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import Link from 'next/link'
 import numeral from 'numeral'
 
-import { selectExpenses, selectExpensesTotal } from '../modules/expenses'
+import { selectFilteredExpensesCount, selectFilteredExpensesTotal } from '../modules/expenses'
 
 
 export const ExpenseSummary = ({ expenseCount, expensesTotal }) => {
@@ -24,10 +24,9 @@ export const ExpenseSummary = ({ expenseCount, expensesTotal }) => {
 }
 
 const mapStateToProps = (state) => {
-  const visibleExpenses = selectExpenses(state.expenses, state.filters)
   return {
-    expenseCount: visibleExpenses.length,
-    expensesTotal: selectExpensesTotal(visibleExpenses)
+    expenseCount: selectFilteredExpensesCount(state),
+    expensesTotal: selectFilteredExpensesTotal(state)
   }
 }
 
