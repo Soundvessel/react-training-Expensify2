@@ -3,7 +3,7 @@ import Router from 'next/router'
 import { connect } from 'react-redux'
 
 import ExpenseForm from '../components/ExpenseForm'
-import { startEditExpense, startRemoveExpense } from '../actions/expenses'
+import { startEditExpense, startRemoveExpense } from '../modules/expenses'
 import requireFireAuth from '../lib/requireFireAuth'
 
 

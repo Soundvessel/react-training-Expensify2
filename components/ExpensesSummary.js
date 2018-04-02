@@ -3,8 +3,7 @@ import { connect } from 'react-redux'
 import Link from 'next/link'
 import numeral from 'numeral'
 
-import selectExpenses from '../selectors/expenses'
-import selectExpensesTotal from '../selectors/expenses-total'
+import { selectExpenses, selectExpensesTotal } from '../modules/expenses'
 
 
 export const ExpenseSummary = ({ expenseCount, expensesTotal }) => {
