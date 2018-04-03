@@ -63,6 +63,7 @@ export const startAddExpense = (expenseData = {}) => {
 
     const uid = getState().auth.uid
 
+    // empty expense
     const {
       description = '',
       note = '',
@@ -117,6 +118,8 @@ export const removeExpense = ({ id } = {}) => ({
 })
 
 /*
+  startEditExpense
+
   Edits Expense in Firebase DB then dispatches EDIT_EXPENSE
 */
 export const startEditExpense = (id, updates) => {
@@ -142,6 +145,8 @@ export const editExpense = (id, updates) => ({
 })
 
 /*
+  startSetExpenses
+
   Gets Expenses for logged in user and dispatches SET_EXPENSES
 */
 export const startSetExpenses = () => {
@@ -187,6 +192,8 @@ const selectExpenses = state => state.expenses
 const selectFilters = state => state.filters
 
 /*
+  selectFilteredExpenses
+
   Selects Expenses based on filter settings
 */
 export const selectFilteredExpenses = createSelector(
@@ -211,6 +218,8 @@ export const selectFilteredExpenses = createSelector(
 )
 
 /*
+  selectFilteredExpensesCount
+
   Selects count of Filtered Expenses
 */
 export const selectFilteredExpensesCount = createSelector(
@@ -220,6 +229,8 @@ export const selectFilteredExpensesCount = createSelector(
 
 
 /*
+  selectFilteredExpensesTotal
+
   Selects Filtered Expenses amount total (sums amounts)
 */
 export const selectFilteredExpensesTotal = createSelector(
