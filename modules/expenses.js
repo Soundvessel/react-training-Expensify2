@@ -3,6 +3,7 @@
 import database from '../lib/firebase'
 import * as moment from 'moment'
 import { createSelector } from 'reselect'
+import { map } from 'lodash'
 
 
 // Actions
@@ -153,20 +154,18 @@ export const startSetExpenses = () => {
   return (dispatch, getState) => {
 
     const uid = getState().auth.uid
-    const expenses = []
 
-    const expensesArray = (snapshot) => {
-      snapshot.forEach((childSnapshot) => {
-        expenses.push({
-          id: childSnapshot.key,
-          ...childSnapshot.val()
-        })
-      })
-    }
+    const expensesArray = (snapshot) => (
+      map(snapshot.val(), (value, key) => ({
+        id: key,
+        ...value
+      }))
+    )
 
     return database.ref(`users/${uid}/expenses`)
-      .once('value', (snapshot) => expensesArray(snapshot))
-      .then(() => {
+      .once('value')
+      .then(expensesArray)
+      .then((expenses) => {
         dispatch(setExpenses(expenses))
       })
   }
