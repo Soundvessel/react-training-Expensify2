@@ -2,7 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import { connect } from 'react-redux'
 
-import { startLogout } from '../actions/auth'
+import { startLogout } from '../modules/auth'
 
 export const Header = () => (
 

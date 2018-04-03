@@ -9,7 +9,7 @@ import initStore from '../store'
 
 import Layout from '../components/Layout'
 import { firebase } from '../lib/firebase'
-import { startLogin, login, logout } from '../actions/auth'
+import { startLogin, login, logout } from '../modules/auth'
 import { startSetExpenses } from '../modules/expenses'
 
 class Index extends React.Component {
