@@ -17,6 +17,7 @@ node_modules
 .cache
 *.log
 static/styles/app.css
+bundles
 
 # Secrets
 .env

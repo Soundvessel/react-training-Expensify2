@@ -1,24 +1,29 @@
 const path = require('path')
 const webpack = require('webpack')
 const withSass = require('@zeit/next-sass')
-const { ANALYZE } = process.env
+const withBundleAnalyzer = require("@zeit/next-bundle-analyzer");
+const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
 
-module.exports = withSass({
+module.exports = withSass(withBundleAnalyzer({
+
+  analyzeServer: ["server", "both"].includes(process.env.BUNDLE_ANALYZE),
+  analyzeBrowser: ["browser", "both"].includes(process.env.BUNDLE_ANALYZE),
+  bundleAnalyzerConfig: {
+    server: {
+      analyzerMode: 'static',
+      reportFilename: '../../bundles/server.html'
+    },
+    browser: {
+      analyzerMode: 'static',
+      reportFilename: '../bundles/client.html'
+    }
+  },
 
   sassLoaderOptions: {
     includePaths: ["styles"]
   },
 
   webpack(config, { dev }) {
-    if (ANALYZE) {
-      const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
-      config.plugins.push(new BundleAnalyzerPlugin({
-        analyzerMode: 'server',
-        analyzerPort: 8888,
-        openAnalyzer: true
-      }))
-    }
-
     // Only load specific locales for moment.js
     // See: https://stackoverflow.com/a/25426019/956688
     config.plugins.push(new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/))
@@ -32,4 +37,4 @@ module.exports = withSass({
 
     return config
   }
-})
+}))

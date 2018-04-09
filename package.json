@@ -7,11 +7,13 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "analyze": "cross-env BUNDLE_ANALYZE=both next build"
   },
   "author": "G@Coplex",
   "license": "ISC",
   "dependencies": {
+    "@zeit/next-bundle-analyzer": "^0.1.1",
     "@zeit/next-sass": "^0.1.1",
     "dotenv-webpack": "^1.5.5",
     "final-form": "^4.3.1",
@@ -19,6 +21,7 @@
     "humps": "^2.0.1",
     "isomorphic-unfetch": "^2.0.0",
     "jquery-param": "^1.0.0",
+    "lodash": "latest",
     "moment": "^2.18.1",
     "next": "^5.0.0",
     "next-redux-wrapper": "^1.3.5",
@@ -40,9 +43,11 @@
     "redux-thunk": "^2.2.0",
     "reselect": "^3.0.1",
     "uid": "0.0.2",
-    "uuid": "^3.2.1"
+    "uuid": "^3.2.1",
+    "webpack-bundle-analyzer": "^2.11.1"
   },
   "devDependencies": {
+    "cross-env": "^5.1.4",
     "redux-devtools-extension": "^2.13.2"
   }
 }
