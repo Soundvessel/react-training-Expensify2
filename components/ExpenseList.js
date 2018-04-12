@@ -24,6 +24,30 @@ export const ExpenseList = (props) => (
       )
     }
     </div>
+    {/*language=SCSS*/}
+    <style jsx>{`
+
+      @import '../styles/global/variables';
+
+      .list-header {
+        background-color: $off-white;
+        border: 1px solid darken($off-white, 7%);
+        color: $grey;
+        padding: $s-size $m-size;
+
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .list-body {
+        margin-bottom: $m-size;
+
+        @media (min-width: $desktop-breakpoint) {
+          margin-bottom: $l-size;
+        }
+      }
+
+    `}</style>
   </div>
 )
 

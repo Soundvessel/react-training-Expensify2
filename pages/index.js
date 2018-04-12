@@ -51,11 +51,41 @@ class Index extends React.Component {
       <Layout showHead={false} isLoading={this.state.isLoading}>
         <div className="box-layout">
           <div className="box-layout__box">
-            <h1 className="vox-layout__title">Expensify</h1>
+            <h1 className="box-layout__title">Expensify</h1>
             <p>It's time ot get your expenses under control.</p>
             <button type="button" className="btn" onClick={startLogin}>Login with Google</button>
           </div>
         </div>
+        {/*language=SCSS*/}
+        <style jsx>{`
+
+          @import '../styles/global/variables';
+
+          .box-layout {
+            background-image: url('/static/images/bg.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100%;
+          }
+
+          .box-layout__box {
+            background: fade-out(white, .15);
+            border-radius: 3px;
+            padding: $l-size $m-size;
+            text-align: center;
+            width: 25rem;
+          }
+
+          .box-layout__title {
+            margin: 0 0 $m-size;
+            line-height: 1;
+          }
+
+        `}</style>
       </Layout>
     )
   }

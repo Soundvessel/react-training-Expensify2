@@ -83,6 +83,10 @@ export default class ExpenseForm extends React.Component {
           numberOfMonths={1}
           isOutsideRange={(day) => false}
         />
+        {/* Datepicker module theming */}
+        <style jsx global>{`
+          @import 'react-dates/lib/css/datepicker';
+        `}</style>
         <textarea
           className="textarea"
           placeholder="Add a note for your expense (optional)"

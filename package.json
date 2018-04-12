@@ -42,6 +42,7 @@
     "redux-debounced": "^0.4.0",
     "redux-thunk": "^2.2.0",
     "reselect": "^3.0.1",
+    "styled-jsx-plugin-sass": "^0.2.4",
     "uid": "0.0.2",
     "uuid": "^3.2.1",
     "webpack-bundle-analyzer": "^2.11.1"

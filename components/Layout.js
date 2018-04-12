@@ -1,7 +1,7 @@
 // components/layout.js
 
 import React from 'react'
-import '../styles/styles.scss'
+import '../styles/globals.scss'
 import PropTypes from 'prop-types'
 import Header from '../components/Header'
 import Loading from '../components/Loading'

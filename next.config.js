@@ -20,7 +20,7 @@ module.exports = withSass(withBundleAnalyzer({
   },
 
   sassLoaderOptions: {
-    includePaths: ["styles"]
+    includePaths: ["./styles", "./node_modules"]
   },
 
   webpack(config, { dev }) {

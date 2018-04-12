@@ -75,6 +75,10 @@ export class ExpenseListFilters extends React.Component {
               startDatePlaceholderText="Start Date"
               endDatePlaceholderText="End Date"
             />
+            {/* Datepicker module theming */}
+            <style jsx global>{`
+              @import 'react-dates/lib/css/datepicker';
+            `}</style>
           </div>
         </div>
       </div>
