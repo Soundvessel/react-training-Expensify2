@@ -35,7 +35,7 @@ export default (state = initialState , action) => {
     case REMOVE_EXPENSE:
       return state.filter(({ id }) => id !== action.id )
     case EDIT_EXPENSE:
-      return state.map((expense) => {
+      return map(state, (expense) => {
         if (expense.id === action.id) {
           return {
             ...expense,
@@ -201,7 +201,6 @@ export const selectFilteredExpenses = createSelector(
   (expenses, { text, sortBy, startDate, endDate }) => {
 
     const matchFunc = (expense) => {
-      console.log('Matching Expense:', expense)
       const createdAtMoment = moment( expense.createdAt )
       const startDateMatch = startDate ? moment( startDate ).isSameOrBefore( createdAtMoment, 'day' ) : true
       const endDateMatch = endDate ? moment( endDate ).isSameOrAfter( createdAtMoment, 'day' ) : true
