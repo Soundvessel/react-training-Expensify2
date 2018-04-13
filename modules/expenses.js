@@ -200,8 +200,6 @@ export const selectFilteredExpenses = createSelector(
   selectFilters,
   (expenses, { text, sortBy, startDate, endDate }) => {
 
-    console.log('Expenses in:', expenses)
-
     const matchFunc = (expense) => {
       console.log('Matching Expense:', expense)
       const createdAtMoment = moment( expense.createdAt )
@@ -213,7 +211,6 @@ export const selectFilteredExpenses = createSelector(
     }
 
     const sortFunc = (expense) => {
-      console.log(`Sort by ${sortBy}`)
       if (sortBy === 'date') {
         return expense.createdAt
       } else if (sortBy === 'amount') {
