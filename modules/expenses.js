@@ -3,8 +3,8 @@
 import database from '../lib/firebase'
 import * as moment from 'moment'
 import { createSelector } from 'reselect'
+import { filter, sortBy as _sortBy, flow} from 'lodash/fp'
 import { map } from 'lodash'
-
 
 // Actions
 //////////
@@ -199,20 +199,33 @@ export const selectFilteredExpenses = createSelector(
   selectExpenses,
   selectFilters,
   (expenses, { text, sortBy, startDate, endDate }) => {
-    return expenses.filter((expense) => {
-      const createdAtMoment = moment(expense.createdAt)
-      const startDateMatch = startDate ? moment(startDate).isSameOrBefore(createdAtMoment, 'day') : true
-      const endDateMatch = endDate ? moment(endDate).isSameOrAfter(createdAtMoment, 'day') : true
-      const textMatch = expense.description.toLowerCase().includes(text.toLowerCase())
+
+    console.log('Expenses in:', expenses)
+
+    const matchFunc = (expense) => {
+      console.log('Matching Expense:', expense)
+      const createdAtMoment = moment( expense.createdAt )
+      const startDateMatch = startDate ? moment( startDate ).isSameOrBefore( createdAtMoment, 'day' ) : true
+      const endDateMatch = endDate ? moment( endDate ).isSameOrAfter( createdAtMoment, 'day' ) : true
+      const textMatch = expense.description.toLowerCase().includes( text.toLowerCase() )
 
       return startDateMatch && endDateMatch && textMatch
-    }).sort((a, b) => {
+    }
+
+    const sortFunc = (expense) => {
+      console.log(`Sort by ${sortBy}`)
       if (sortBy === 'date') {
-        return a.createdAt < b.createdAt ? 1 : -1
+        return expense.createdAt
       } else if (sortBy === 'amount') {
-        return a.amount < b.amount ? 1 : -1
+        return expense.amount
       }
-    })
+    }
+
+    return flow(
+      filter(matchFunc),
+      _sortBy(sortFunc)
+    )(expenses)
+
   }
 )
 
