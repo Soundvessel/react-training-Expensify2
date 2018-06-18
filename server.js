@@ -5,6 +5,7 @@ const routes = require('./routes')
 const dev = process.env.NODE_ENV !== 'production'
 const port = process.env.PORT || 3000
 const app = next({ dev })
+const handle = app.getRequestHandler()
 const handler = routes.getRequestHandler(app)
 
 app.prepare()
@@ -12,6 +13,10 @@ app.prepare()
     const server = express()
 
     server.use(handler)
+
+    server.get('*', (req, res) => {
+      return handle(req, res)
+    })
 
     server.listen(port, (err) => {
       if (err) throw err

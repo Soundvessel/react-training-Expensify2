@@ -6,22 +6,34 @@ import ExpenseList from '../components/ExpenseList'
 import requireFireAuth from '../lib/requireFireAuth'
 import ExpenseListFilters from '../components/ExpenseListFilters'
 import ExpensesSummary from '../components/ExpensesSummary'
+import BandGrid from '../components/BandGrid'
 // Prismic <3 Nextjs
-import { initPrismic, queryPrismic, RichText } from 'prismic-next'
+import { RichText } from 'prismic-next'
+import queryPrismic, { initPrismic } from '../lib/queryPrismicCustom'
 
-const Dashboard = (props) => (
+if (process.browser) {
+  require('picturefill');
+}
+
+const Dashboard = ({pcPage, pcBands}) => (
   <>
     <Head>
-      <title>{props.siteDoc['meta-title']}</title>
-      <meta name="description" content="{props.siteDoc['meta-description']}"  key="metaNameDescription" />
+      <title>{pcPage['meta-title']}</title>
+      <meta name="description" content="{pageContent['meta-description']}"  key="metaNameDescription" />
     </Head>
     <Layout showHead={true}>
       <ExpensesSummary/>
       <ExpenseListFilters/>
       <ExpenseList />
       <div className="content-container">
-        <RichText linkResolver={linkResolver} data={props.siteDoc['dashboard_instructions']} />
+        <BandGrid pcBands={pcBands} />
+        <RichText linkResolver={linkResolver} data={pcPage['dashboard_instructions']} />
       </div>
+      <ul>
+        {
+
+        }
+      </ul>
     </Layout>
   </>
 )
@@ -38,20 +50,50 @@ function linkResolver(data) {
 }
 
 Dashboard.propTypes = {
-  siteDoc: PropTypes.shape({
-    'meta-title': PropTypes.string.isRequired,
-    'meta-description': PropTypes.string.isRequired,
+  pcPage: PropTypes.shape({
+    'meta-title':             PropTypes.string.isRequired,
+    'meta-description':       PropTypes.string.isRequired,
     'dashboard_instructions': PropTypes.array.isRequired,
   }).isRequired,
+  pcBands: PropTypes.arrayOf(PropTypes.shape({
+    uid:        PropTypes.string.isRequired,
+    name:       PropTypes.string.isRequired,
+    thumbUrlSm: PropTypes.string.isRequired,
+    thumbUrlLg: PropTypes.string.isRequired,
+    thumbAlt:   PropTypes.string.isRequired,
+  })).isRequired,
 }
 
-// Fetch site doc.
 Dashboard.getInitialProps = async () => {
+
+  // fetch Prismic content (pc)
   initPrismic({
-    endpoint: 'https://expensify2.cdn.prismic.io/api/v2',
-  });
-  const siteDocRes = await queryPrismic([['at', 'document.type', 'dashboard']])
-  return { siteDoc: siteDocRes.results[0].data }
+    endpoint: 'https://expensify2.cdn.prismic.io/api/v2'
+  })
+  const prismicRes = await Promise.all([
+    queryPrismic([['at', 'document.type', 'dashboard']]), // [0] result data
+    queryPrismic(
+      [['at', 'document.type', 'band']], // [1] results array
+      {
+        fetch: ['band.name', 'band.image', 'band.uid'],
+        orderings: '[my.band.name]'
+      }
+    )
+  ])
+
+  // cleanup and assign Prismic content to props
+  return {
+    pcPage: prismicRes[0].results[0].data,
+    pcBands: prismicRes[1].results.map(
+      pcBand => ({
+        uid:        pcBand.uid,
+        name:       pcBand.data.name,
+        thumbUrlSm: pcBand.data.image.thumb_200.url,
+        thumbUrlLg: pcBand.data.image.thumb_400.url,
+        thumbAlt:   pcBand.data.image.alt
+      })
+    )
+  }
 }
 
 export default requireFireAuth(Dashboard)

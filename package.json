@@ -31,6 +31,7 @@
     "normalizr": "^3.2.4",
     "npm": "^5.7.1",
     "numeral": "^2.0.6",
+    "picturefill": "^3.0.2",
     "postcss-import": "^11.1.0",
     "prismic-next": "0.0.2",
     "prop-types": "^15.6.1",
