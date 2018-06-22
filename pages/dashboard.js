@@ -11,10 +11,6 @@ import BandGrid from '../components/BandGrid'
 import { RichText } from 'prismic-next'
 import queryPrismic, { initPrismic } from '../lib/queryPrismicCustom'
 
-if (process.browser) {
-  require('picturefill');
-}
-
 const Dashboard = ({pcPage, pcBands}) => (
   <>
     <Head>
@@ -25,15 +21,11 @@ const Dashboard = ({pcPage, pcBands}) => (
       <ExpensesSummary/>
       <ExpenseListFilters/>
       <ExpenseList />
+      <BandGrid pcBands={pcBands} />
       <div className="content-container">
-        <BandGrid pcBands={pcBands} />
         <RichText linkResolver={linkResolver} data={pcPage['dashboard_instructions']} />
       </div>
-      <ul>
-        {
-
-        }
-      </ul>
+      <br/>
     </Layout>
   </>
 )

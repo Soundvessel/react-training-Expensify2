@@ -6,6 +6,11 @@ import BandGrid from '../components/BandGrid'
 import queryPrismic, { initPrismic } from '../lib/queryPrismicCustom'
 import requireFireAuth from '../lib/requireFireAuth'
 
+// polyfill for <picture> element and srcset/size attributes for IE11
+if (process.browser) {
+  require('picturefill');
+}
+
 const Band = ({pcPage, pcBands}) => (
   <>
     <Head>{console.log(pcPage)}
@@ -34,12 +39,12 @@ Band.getInitialProps = async ({query}) => {
   } )
 
   const prismicRes = await Promise.all([
-    queryPrismic([['at', 'my.band.uid', uid]]), // [0] result data
+    queryPrismic([['at', 'my.band.uid', uid]]), // [0] single result data
     queryPrismic(
       [
         ['at', 'document.type', 'band'],
         ['not', 'my.band.uid', uid] // filter out current uid
-      ], // [1] results array
+      ], // [1] multiple results array
       {
         fetch: ['band.name', 'band.image', 'band.uid'],
         orderings: '[my.band.name]'

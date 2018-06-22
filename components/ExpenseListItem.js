@@ -14,60 +14,7 @@ const ExpenseListItem = ({ id, description, amount, createdAt }) => (
       {/*language=SCSS*/}
       <style jsx>{`
 
-        @import '../styles/global/variables';
-
-        .list-item {
-          border: 1px solid darken($off-white, 7%);
-          border-top: none;
-          color: $dark-grey;
-          display: flex;
-          flex-direction: column;
-          padding: $s-size;
-          text-decoration: none;
-          transition: background-color .3s ease;
-
-          &:hover,
-          &:focus {
-            background-color: $off-white;
-          }
-
-          @media (min-width: $desktop-breakpoint) {
-            align-items: center;
-            flex-direction: row;
-            justify-content: space-between;
-            padding: $m-size;
-          }
-        }
-
-        .list-item--message {
-          align-items: center;
-          color: $grey;
-          justify-content: center;
-          padding: $m-size;
-
-          &:hover,
-          &:focus {
-            background-color: transparent;
-          }
-        }
-
-        .list-item__title {
-          margin: 0;
-          word-break: break-all;
-        }
-
-        .list-item__sub-title {
-          color: $grey;
-          font-size: $font-size-s;
-        }
-
-        .list-item__data {
-          margin: $s-size 0 0;
-          @media (min-width: $desktop-breakpoint) {
-            margin: 0;
-            padding-left: $s-size;
-          }
-        }
+        @import 'ExpenseListItem';
 
       `}</style>
     </a>
