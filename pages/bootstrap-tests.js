@@ -21,6 +21,7 @@ const BootstrapTests = () => (
       />
     </Head>
     <Container className="py-5">
+      <h2>Pagination?</h2>
       <Pagination aria-label="Page navigation example">
         <PaginationItem>
           <PaginationLink href="#">Previous</PaginationLink>
